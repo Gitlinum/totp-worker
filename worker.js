@@ -53,29 +53,7 @@
     const loadTime = Math.floor(Date.now() / 1e3);
     const otp = await generateOTP(secret, loadTime);
 
-    const htmlContent = `
-      <html>
-        <head>
-          <title>TOTP Generator</title>
-          <script>
-            const loadTime = ${loadTime};
-            
-            const remainingTime = ${calculateRemainingTime(loadTime)};
-            
-            if (remainingTime <= 0) {
-              location.reload();
-            } else {
-              setTimeout(() => {
-                location.reload();
-              }, remainingTime * 1000);
-            }
-          </script>
-        </head>
-        <body>
-          <pre>{"token": "${otp}"}</pre>
-        </body>
-      </html>
-    `;
+    const htmlContent = `${otp}`;
 
     return new Response(htmlContent, {
       headers: {
